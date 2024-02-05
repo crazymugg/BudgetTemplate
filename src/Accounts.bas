@@ -35,8 +35,8 @@ End Sub
 
 
 Public Sub Crap()
-    Dim Poop As test
-    Set Poop = New test
+    Dim Poop As Test
+    Set Poop = New Test
     With Poop
         .Title = "Poop"
         .Index = 1
