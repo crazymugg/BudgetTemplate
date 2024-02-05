@@ -2,7 +2,8 @@ Attribute VB_Name = "Accounts"
 Option Explicit
 
 Public Sub CreateAccount()
-    MsgBox ("Placeholder Text")
+    'MsgBox ("Placeholder Text")
+    AddAccount.Show
 End Sub
 
 Public Sub EditAccount()
