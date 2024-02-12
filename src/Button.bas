@@ -12,7 +12,10 @@ End Sub
 
 
 Public Sub Placeholder()
-    MsgBox ("Placholder text here!")
+    Dim Response As String
+    Response = InputBox("Help", "This is the title?", "return")
+    Debug.Print (Response)
+    'MsgBox ("Placholder text here!")
 End Sub
 
 

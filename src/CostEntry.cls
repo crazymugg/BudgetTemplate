@@ -9,6 +9,10 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Dim SelfID As Integer
+Dim SelfYear As Integer
+Dim SelfMonth As Integer
+Dim SelfDay As Integer
 Dim SelfDate As Date
 Dim SelfCost As Currency
 Dim SelfPlace As String
@@ -22,8 +26,8 @@ Public Property Get EntryDate() As Date
 End Property
 
 
-Public Property Let EntryDate(ByVal NewDate As Date)
-    SelfEntry = NewDate
+Private Property Let EntryDate(ByVal NewDate As Date)
+    SelfDate = NewDate
 End Property
 
 
