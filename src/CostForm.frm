@@ -16,18 +16,6 @@ Attribute VB_Exposed = False
 Option Explicit
 
 
-Private Sub CommandButton4_Click()
-    CostForm.Hide
-End Sub
-
-Private Sub Label10_Click()
-
-End Sub
-
-Private Sub TextBox10_Change()
-
-End Sub
-
-Private Sub TextBox4_Change()
+Private Sub TextBox5_Change()
 
 End Sub
