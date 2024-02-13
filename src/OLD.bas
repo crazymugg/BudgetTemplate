@@ -72,11 +72,6 @@ Public Sub TestCost()
 End Sub
 
 
-Public Sub ShowCostEntryForm()
-    CostForm.Show
-    Debug.Print ("Help")
-End Sub
-
 
 Public Sub CreateAccount()
     'MsgBox ("Placeholder Text")
@@ -125,5 +120,29 @@ Public Sub Crap()
     
     Debug.Print (Poop.Title)
 End Sub
+
+
+
+Public Sub DateFormatting()
+    Dim MyDate As Date
+    Dim MyDateString As String
+    Dim DateArray() As String
+    
+    MyDate = Date
+    MyDateString = CStr(MyDate)
+    
+    DateArray = Split(MyDateString, "-")
+    
+    Debug.Print (DateArray(2))
+    
+    
+    
+End Sub
+
+
+
+
+
+
 
 

@@ -8,3 +8,8 @@ Public Sub Placeholder()
     Debug.Print (Response)
     'MsgBox ("Placholder text here!")
 End Sub
+
+
+Public Sub ShowCostEntryForm()
+    CostForm.Show
+End Sub
