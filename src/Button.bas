@@ -13,3 +13,8 @@ End Sub
 Public Sub ShowCostEntryForm()
     CostForm.Show
 End Sub
+
+
+Public Sub ShowNewYearForm()
+    YearForm.Show
+End Sub

@@ -100,21 +100,23 @@ End Function
 
 
 Private Sub AddButton_Click()
-    Debug.Print ("Add Button Pressed")
+    ' Find sheet for input year
+    ' Create New Row
+    ' Plug info into New Row
 End Sub
 
 
 Private Sub EditButton_Click()
-    '
-    '
-    '
-    '
-    '
+    ' Find sheet for input year
+    ' Find Row for ID
+    ' Override info in row
 End Sub
 
 
 Private Sub DeleteButton_Click()
-    Debug.Print ("Delete Button Pressed")
+   ' Find Sheet for input year
+   ' Find Row for ID
+   ' Delete Row
 End Sub
 
 
