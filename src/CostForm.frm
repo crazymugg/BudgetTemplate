@@ -83,13 +83,33 @@ Private Sub ClearIDSearch()
 End Sub
 
 
+Private Sub SearchButton_Click()
+    ' Call IDLookup
+    ' Populate form with info from call
+End Sub
+
+
+Private Function IDLookup(ByRef ID As Integer)
+    ' array of year sheets
+    ' IDLookup = Blank
+    ' For each sheet, loop thru table
+    '   If ID is in table
+    '       IDLookup = Grab info of Row
+    '   Else Next table
+End Function
+
+
 Private Sub AddButton_Click()
     Debug.Print ("Add Button Pressed")
 End Sub
 
 
 Private Sub EditButton_Click()
-    Debug.Print ("Edit Button Pressed")
+    '
+    '
+    '
+    '
+    '
 End Sub
 
 
