@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} CostForm 
-   Caption         =   "UserForm1"
+   Caption         =   "Cost Entry Form"
    ClientHeight    =   6480
    ClientLeft      =   120
    ClientTop       =   465
@@ -101,19 +101,40 @@ End Sub
 
 
 Private Sub SearchButton_Click()
-    ' Call IDLookup
-    ' Populate form with info from call
+    Dim WS As Worksheet
+    Dim ORow As Range
+    Dim LRow As ListRow
+    Dim IDValue As String
+    Dim IDDate As Date
+    
+    For Each WS In Application.Worksheets
+    
+        If WS.Name = "Inputs" Or WS.Name = "Accounts" Then
+            Debug.Print ("Skip this sheet: " + WS.Name)
+        Else
+            
+            For Each LRow In WS.ListObjects("Table" + WS.Name).ListRows
+            
+                IDValue = CStr(LRow.Range(1, 1).Value)
+                
+                If IDValue = IDSearchBox.Value Then
+                    CostForm.IDBox = IDValue
+                    IDDate = LRow.Range(1, 2)
+                    YearBox = Year(IDDate)
+                    MonthBox = Month(IDDate)
+                    DayBox = Day(IDDate)
+                    CostBox = LRow.Range(1, 3)
+                    PlaceBox = LRow.Range(1, 4)
+                    LocationBox = LRow.Range(1, 5)
+                    MethodBox = LRow.Range(1, 6)
+                    NotesBox = LRow.Range(1, 7)
+                End If
+                
+            Next LRow
+        End If
+    Next WS
+
 End Sub
-
-
-Private Function IDLookup(ByRef ID As Integer)
-    ' array of year sheets
-    ' IDLookup = Blank
-    ' For each sheet, loop thru table
-    '   If ID is in table
-    '       IDLookup = Grab info of Row
-    '   Else Next table
-End Function
 
 
 Private Sub AddButton_Click()
@@ -127,6 +148,43 @@ Private Sub EditButton_Click()
     ' Find sheet for input year
     ' Find Row for ID
     ' Override info in row
+    
+    Dim WS As Worksheet
+    Dim ORow As Range
+    Dim LRow As ListRow
+    Dim IDValue As String
+    Dim IDDate As Date
+    
+    For Each WS In Application.Worksheets
+    
+        If WS.Name = "Inputs" Or WS.Name = "Accounts" Then
+            Debug.Print ("Skip this sheet: " + WS.Name)
+        Else
+            
+            For Each LRow In WS.ListObjects("Table" + WS.Name).ListRows
+            
+                IDValue = CStr(LRow.Range(1, 1).Value)
+                
+                If IDValue = IDSearchBox.Value Then
+                    
+                
+                
+                
+                    CostForm.IDBox = IDValue
+                    IDDate = LRow.Range(1, 2)
+                    YearBox = Year(IDDate)
+                    MonthBox = Month(IDDate)
+                    DayBox = Day(IDDate)
+                    CostBox = LRow.Range(1, 3)
+                    PlaceBox = LRow.Range(1, 4)
+                    LocationBox = LRow.Range(1, 5)
+                    MethodBox = LRow.Range(1, 6)
+                    NotesBox = LRow.Range(1, 7)
+                End If
+                
+            Next LRow
+        End If
+    Next WS
 End Sub
 
 
@@ -142,7 +200,6 @@ Private Sub ResetButton_Click()
     Call PopulateDateBoxes
     Call PopulateID
     
-    CostForm.IDBox.Value = ""
     CostForm.CostBox.Value = ""
     CostForm.PlaceBox.Value = ""
     CostForm.LocationBox.Value = ""
