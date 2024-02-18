@@ -17,8 +17,26 @@ Option Explicit
 
 
 Private Sub MethodBox_AfterUpdate()
-     MsgBox ("Hi")
-     'TODO add a check here to ensure option is in MethodsTable
+    'check here to ensure option is in MethodsTable
+    Dim InputMethod As String
+    Dim Result As Boolean
+    Dim MethodRow As ListRow
+    Dim MethodTable As ListObject
+    
+    Result = False
+    InputMethod = CostForm.MethodBox.Value
+    Set MethodTable = ActiveSheet.ListObjects("MethodsTable")
+    
+    For Each MethodRow In MethodTable.ListRows:
+        If MethodRow.Range(1, 1).Value = InputMethod Then
+            Result = True
+        End If
+    Next
+    
+    If Result = False Then
+        MsgBox ("Please select a valid input!")
+        CostForm.MethodBox.ForeColor = RGB(255, 0, 0)
+    End If
 End Sub
 
 
@@ -72,7 +90,6 @@ Private Sub PopulateMethodBox()
     For Each MyRow In MyTable.ListRows:
         Set MyRange = MyRow.Range(1, 1)
         Let MyString = MyRange.Value
-        Debug.Print ("String is" + MyString)
         CostForm.MethodBox.AddItem (MyString)
     Next
 End Sub

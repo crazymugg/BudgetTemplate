@@ -16,6 +16,8 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub SubmitButton_Click()
+    Application.ScreenUpdating = False
+
     'Create Table
     Dim YearName As String
     Dim NewWS As Worksheet
