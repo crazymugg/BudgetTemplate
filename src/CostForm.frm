@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} CostForm 
    Caption         =   "Cost Entry Form"
-   ClientHeight    =   6480
+   ClientHeight    =   7080
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   6600
@@ -141,57 +141,120 @@ Private Sub AddButton_Click()
     ' Find sheet for input year
     ' Create New Row
     ' Plug info into New Row
+    
+    Dim WSName As String
+    Dim WS As Worksheet
+    
+    Dim LRow As ListRow
+    Dim IDValue As String
+    
+    Dim IDYear As String
+    Dim IDMonth As String
+    Dim IDDay As String
+    
+    Dim IDDateString As String
+    Dim IDDate As Date
+    
+    WSName = CStr(CostForm.YearBox.Value)
+    Set WS = Application.Worksheets(WSName)
+    
+    IDValue = CStr(CostForm.IDBox.Value)
+    IDYear = CStr(CostForm.YearBox.Value)
+    IDMonth = CStr(CostForm.MonthBox.Value)
+    IDDay = CStr(CostForm.DayBox.Value)
+    IDDateString = IDMonth + "-" + IDDay + "-" + IDYear
+    IDDate = CDate(IDDateString)
+    
+    
+    Set LRow = WS.ListObjects("Table" + WS.Name).ListRows.Add
+    
+    With LRow
+        .Range(1, 1).Value = IDValue
+        .Range(1, 2).Value = IDDate
+        .Range(1, 3).Value = CostForm.CostBox.Value
+        .Range(1, 4).Value = CostForm.PlaceBox.Value
+        .Range(1, 5).Value = CostForm.LocationBox.Value
+        .Range(1, 6).Value = CostForm.MethodBox.Value
+        If CostForm.NotesBox.Value <> "(Optional)" Then
+            .Range(1, 7).Value = CostForm.NotesBox.Value
+        End If
+    End With
+    
+    Application.Worksheets("Inputs").Range("J4:J4").Value = CInt(IDValue)
+    MsgBox ("Entry Added")
+    Call ResetButton_Click
+    
 End Sub
 
 
 Private Sub EditButton_Click()
-    ' Find sheet for input year
-    ' Find Row for ID
-    ' Override info in row
-    
+    Dim WSName As String
     Dim WS As Worksheet
-    Dim ORow As Range
+    
     Dim LRow As ListRow
     Dim IDValue As String
+    
+    Dim IDYear As String
+    Dim IDMonth As String
+    Dim IDDay As String
+    
+    Dim IDDateString As String
     Dim IDDate As Date
     
-    For Each WS In Application.Worksheets
+    WSName = CStr(CostForm.YearBox.Value)
+    Set WS = Application.Worksheets(WSName)
     
-        If WS.Name = "Inputs" Or WS.Name = "Accounts" Then
-            Debug.Print ("Skip this sheet: " + WS.Name)
-        Else
-            
-            For Each LRow In WS.ListObjects("Table" + WS.Name).ListRows
-            
-                IDValue = CStr(LRow.Range(1, 1).Value)
-                
-                If IDValue = IDSearchBox.Value Then
-                    
-                
-                
-                
-                    CostForm.IDBox = IDValue
-                    IDDate = LRow.Range(1, 2)
-                    YearBox = Year(IDDate)
-                    MonthBox = Month(IDDate)
-                    DayBox = Day(IDDate)
-                    CostBox = LRow.Range(1, 3)
-                    PlaceBox = LRow.Range(1, 4)
-                    LocationBox = LRow.Range(1, 5)
-                    MethodBox = LRow.Range(1, 6)
-                    NotesBox = LRow.Range(1, 7)
-                End If
-                
-            Next LRow
+    IDValue = CStr(CostForm.IDBox.Value)
+    IDYear = CStr(CostForm.YearBox.Value)
+    IDMonth = CStr(CostForm.MonthBox.Value)
+    IDDay = CStr(CostForm.DayBox.Value)
+    IDDateString = IDMonth + "-" + IDDay + "-" + IDYear
+    IDDate = CDate(IDDateString)
+    
+    For Each LRow In WS.ListObjects("Table" + WS.Name).ListRows
+                           
+        If LRow.Range(1, 1).Value = IDValue Then
+
+            LRow.Range(1, 1) = IDValue
+            LRow.Range(1, 2) = IDDate
+            LRow.Range(1, 3) = CostForm.CostBox.Value
+            LRow.Range(1, 4) = CostForm.PlaceBox.Value
+            LRow.Range(1, 5) = CostForm.LocationBox.Value
+            LRow.Range(1, 6) = CostForm.MethodBox.Value
+            LRow.Range(1, 7) = CostForm.NotesBox.Value
         End If
-    Next WS
+                
+    Next LRow
+    MsgBox ("Entry Edited")
+
 End Sub
 
 
 Private Sub DeleteButton_Click()
-   ' Find Sheet for input year
-   ' Find Row for ID
-   ' Delete Row
+   
+    Dim WSName As String
+    Dim WS As Worksheet
+    Dim LRow As ListRow
+    Dim IDValue As String
+
+    WSName = CStr(CostForm.YearBox.Value)
+    Set WS = Application.Worksheets(WSName)
+    IDValue = CStr(CostForm.IDBox.Value)
+    
+    
+    For Each LRow In WS.ListObjects("Table" + WS.Name).ListRows
+                           
+        If CStr(LRow.Range(1, 1).Value) = IDValue Then
+
+            Call LRow.Delete
+        
+        End If
+                
+    Next LRow
+   
+    MsgBox ("Entry Deleted")
+    Call ResetButton_Click
+   
 End Sub
 
 
