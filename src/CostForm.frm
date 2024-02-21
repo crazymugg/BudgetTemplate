@@ -16,34 +16,23 @@ Attribute VB_Exposed = False
 Option Explicit
 
 
-Private Sub MethodBox_AfterUpdate()
-    'check here to ensure option is in MethodsTable
-    Dim InputMethod As String
-    Dim Result As Boolean
-    Dim MethodRow As ListRow
-    Dim MethodTable As ListObject
-    
-    Result = False
-    InputMethod = CostForm.MethodBox.Value
-    Set MethodTable = ActiveSheet.ListObjects("MethodsTable")
-    
-    For Each MethodRow In MethodTable.ListRows:
-        If MethodRow.Range(1, 1).Value = InputMethod Then
-            Result = True
-        End If
-    Next
-    
-    If Result = False Then
-        MsgBox ("Please select a valid input!")
-        CostForm.MethodBox.ForeColor = RGB(255, 0, 0)
-    End If
-End Sub
-
-
 Private Sub UserForm_Initialize()
     Call PopulateID
     Call PopulateDateBoxes
     Call PopulateMethodBox
+    Call PopulateCategoryBox
+End Sub
+
+
+Private Sub PopulateID()
+    Dim MySheet As Worksheet
+    Dim ID As Integer
+    
+    Set MySheet = Application.Worksheets("Inputs")
+    Let ID = MySheet.Range("J4").Value
+    ID = ID + 1
+    
+    CostForm.IDBox.Value = ID
 End Sub
 
 
@@ -63,19 +52,6 @@ Private Sub PopulateDateBoxes()
 End Sub
 
 
-Private Sub PopulateID()
-    Dim MySheet As Worksheet
-    Dim ID As Integer
-    
-    Set MySheet = Application.Worksheets("Inputs")
-    Let ID = MySheet.Range("J4").Value
-    ID = ID + 1
-    
-    CostForm.IDBox.Value = ID
-    
-End Sub
-
-
 Private Sub PopulateMethodBox()
     Dim MySheet As Worksheet
     Dim MyTable As ListObject
@@ -84,14 +60,81 @@ Private Sub PopulateMethodBox()
     Dim MyString As String
     
     Set MySheet = Application.Worksheets("Inputs")
-    
-    Set MyTable = MySheet.ListObjects("MethodsTable")
+    Set MyTable = MySheet.ListObjects("MethodTable")
     
     For Each MyRow In MyTable.ListRows:
         Set MyRange = MyRow.Range(1, 1)
         Let MyString = MyRange.Value
         CostForm.MethodBox.AddItem (MyString)
     Next
+End Sub
+
+
+Private Sub MethodBox_AfterUpdate()
+    'check here to ensure option is in MethodsTable
+    Dim InputMethod As String
+    Dim Result As Boolean
+    Dim MethodRow As ListRow
+    Dim MethodTable As ListObject
+    
+    Result = False
+    InputMethod = CostForm.MethodBox.Value
+    Set MethodTable = ActiveSheet.ListObjects("MethodTable")
+    
+    For Each MethodRow In MethodTable.ListRows:
+        If MethodRow.Range(1, 1).Value = InputMethod Then
+            Result = True
+        End If
+    Next
+    
+    If Result = False Then
+        MsgBox ("Please select a valid input!")
+        CostForm.MethodBox.ForeColor = RGB(255, 0, 0)
+    End If
+    
+End Sub
+
+
+Private Sub PopulateCategoryBox()
+    Dim MySheet As Worksheet
+    Dim MyTable As ListObject
+    Dim MyRow As ListRow
+    Dim MyRange As Range
+    Dim MyString As String
+    
+    Set MySheet = Application.Worksheets("Inputs")
+    
+    Set MyTable = MySheet.ListObjects("CategoryTable")
+    
+    For Each MyRow In MyTable.ListRows:
+        Set MyRange = MyRow.Range(1, 1)
+        Let MyString = MyRange.Value
+        CostForm.CategoryBox.AddItem (MyString)
+    Next
+End Sub
+
+
+Private Sub CategoryBox_AfterUpdate()
+    'Check here to ensure option is in CategoryTable
+    Dim InputCategory As String
+    Dim Result As Boolean
+    Dim CategoryRow As ListRow
+    Dim CategoryTable As ListObject
+    
+    Result = False
+    InputCategory = CostForm.CategoryBox.Value
+    Set CategoryTable = ActiveSheet.ListObjects("CategoryTable")
+    
+    For Each CategoryRow In CategoryTable.ListRows:
+        If CategoryRow.Range(1, 1).Value = InputCategory Then
+            Result = True
+        End If
+    Next
+    
+    If Result = False Then
+        MsgBox ("Please select a valid input!")
+        CostForm.CategoryBox.ForeColor = RGB(255, 0, 0)
+    End If
 End Sub
 
 
@@ -126,14 +169,14 @@ Private Sub SearchButton_Click()
                     CostBox = LRow.Range(1, 3)
                     PlaceBox = LRow.Range(1, 4)
                     LocationBox = LRow.Range(1, 5)
-                    MethodBox = LRow.Range(1, 6)
-                    NotesBox = LRow.Range(1, 7)
+                    CategoryBox = LRow.Range(1, 6)
+                    MethodBox = LRow.Range(1, 7)
+                    NotesBox = LRow.Range(1, 8)
                 End If
                 
             Next LRow
         End If
     Next WS
-
 End Sub
 
 
@@ -174,9 +217,10 @@ Private Sub AddButton_Click()
         .Range(1, 3).Value = CostForm.CostBox.Value
         .Range(1, 4).Value = CostForm.PlaceBox.Value
         .Range(1, 5).Value = CostForm.LocationBox.Value
-        .Range(1, 6).Value = CostForm.MethodBox.Value
+        .Range(1, 6).Value = CostForm.CategoryBox.Value
+        .Range(1, 7).Value = CostForm.MethodBox.Value
         If CostForm.NotesBox.Value <> "(Optional)" Then
-            .Range(1, 7).Value = CostForm.NotesBox.Value
+            .Range(1, 8).Value = CostForm.NotesBox.Value
         End If
     End With
     
@@ -220,8 +264,9 @@ Private Sub EditButton_Click()
             LRow.Range(1, 3) = CostForm.CostBox.Value
             LRow.Range(1, 4) = CostForm.PlaceBox.Value
             LRow.Range(1, 5) = CostForm.LocationBox.Value
-            LRow.Range(1, 6) = CostForm.MethodBox.Value
-            LRow.Range(1, 7) = CostForm.NotesBox.Value
+            LRow.Range(1, 6) = CostForm.CategoryBox.Value
+            LRow.Range(1, 7) = CostForm.MethodBox.Value
+            LRow.Range(1, 8) = CostForm.NotesBox.Value
         End If
                 
     Next LRow
@@ -266,6 +311,7 @@ Private Sub ResetButton_Click()
     CostForm.CostBox.Value = ""
     CostForm.PlaceBox.Value = ""
     CostForm.LocationBox.Value = ""
+    CostForm.CategoryBox.Value = ""
     CostForm.MethodBox.Value = ""
     CostForm.NotesBox.Value = ""
     
