@@ -92,6 +92,10 @@ Private Sub MethodBox_AfterUpdate()
         CostForm.MethodBox.ForeColor = RGB(255, 0, 0)
     End If
     
+    If Result = True Then
+        CostForm.MethodBox.ForeColor = RGB(0, 0, 0)
+    End If
+    
 End Sub
 
 

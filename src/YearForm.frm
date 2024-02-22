@@ -34,7 +34,7 @@ Private Sub SubmitButton_Click()
         
         .Range("B1", "B1").Value = "Date"
         .Columns("B").ColumnWidth = 10
-        .Columns("B").NumberFormat = "m/d/yy;@"
+        .Columns("B").NumberFormat = "[$-en-US]d/mmm/yy;@"
         
         .Range("C1", "C1").Value = "Cost"
         .Columns("C").ColumnWidth = 10
