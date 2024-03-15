@@ -159,7 +159,7 @@ Private Sub SearchButton_Click()
     
     For Each WS In Application.Worksheets
     
-        If WS.Name = "Inputs" Or WS.Name = "Accounts" Then
+        If WS.Name = "Inputs" Or WS.Name = "Accounts" Or WS.Name = "Dashboard" Then
             Debug.Print ("Skip this sheet: " + WS.Name)
         Else
             
