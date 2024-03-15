@@ -4,7 +4,7 @@ Option Explicit
 Public Sub ShowAdmin()
     Dim AdminArea As Range
 
-    Set AdminArea = ActiveSheet.Columns("E:L")
+    Set AdminArea = ActiveSheet.Columns("E:N")
 
     If AdminArea.Hidden = False Then
         AdminArea.Hidden = True

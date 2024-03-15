@@ -26,10 +26,13 @@ End Sub
 
 Private Sub PopulateID()
     Dim MySheet As Worksheet
+    Dim MyTable As ListObject
     Dim ID As Integer
     
     Set MySheet = Application.Worksheets("Inputs")
-    Let ID = MySheet.Range("J4").Value
+    Set MyTable = MySheet.ListObjects("DataTable")
+    
+    Let ID = MyTable.Range(2, 2).Value
     ID = ID + 1
     
     CostForm.IDBox.Value = ID
@@ -228,7 +231,8 @@ Private Sub AddButton_Click()
         End If
     End With
     
-    Application.Worksheets("Inputs").Range("J4:J4").Value = CInt(IDValue)
+    Application.Worksheets("Inputs").ListObjects("DataTable").Range(1, 2).Value = CInt(IDValue)
+    'Range("J4:J4").Value = CInt(IDValue)
     MsgBox ("Entry Added")
     Call ResetButton_Click
     
