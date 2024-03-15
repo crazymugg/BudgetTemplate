@@ -2,16 +2,36 @@ Attribute VB_Name = "Utilities"
 Option Explicit
 
 Public Sub ShowAdmin()
-    Dim AdminArea As Range
+    Dim AdminCols As Range
+    Dim AdminRows As Range
 
-    Set AdminArea = ActiveSheet.Columns("E:N")
+    Set AdminCols = ActiveSheet.Columns("I:Q")
+    Set AdminRows = ActiveSheet.Rows("22:29")
 
-    If AdminArea.Hidden = False Then
-        AdminArea.Hidden = True
+    If AdminCols.Hidden = False Then
+        AdminCols.Hidden = True
+        AdminRows.Hidden = True
         ActiveSheet.Buttons("AdminButton").Text = "Show Admin"
     Else
-        AdminArea.Hidden = False
+        AdminCols.Hidden = False
+        AdminRows.Hidden = False
         ActiveSheet.Buttons("AdminButton").Text = "Hide Admin"
+    End If
+
+End Sub
+
+
+Public Sub ShowHelp()
+    Dim HelpArea As Range
+
+    Set HelpArea = ActiveSheet.Columns("A:D")
+
+    If HelpArea.Hidden = False Then
+        HelpArea.Hidden = True
+        ActiveSheet.Buttons("HelpButton").Text = "Show Help"
+    Else
+        HelpArea.Hidden = False
+        ActiveSheet.Buttons("HelpButton").Text = "Hide Help"
     End If
 
 End Sub
