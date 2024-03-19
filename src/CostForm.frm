@@ -43,11 +43,14 @@ Private Sub PopulateDateBoxes()
     Dim MyDate As Date
     Dim MyDateString As String
     Dim DateArray() As String
+    Dim ArrayLength As Integer
     
     MyDate = Date
     MyDateString = CStr(MyDate)
     
-    DateArray = Split(MyDateString, "-")
+    ' TODO This is dependant on individual PC Settings. Add a try-except here
+    DateArray = Split(MyDateString, "/")
+    'DateArray = Split(MyDateString, "-")
     
     CostForm.YearBox.Value = DateArray(0)
     CostForm.MonthBox.Value = DateArray(1)

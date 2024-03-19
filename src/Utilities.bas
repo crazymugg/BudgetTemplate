@@ -5,8 +5,8 @@ Public Sub ShowAdmin()
     Dim AdminCols As Range
     Dim AdminRows As Range
 
-    Set AdminCols = ActiveSheet.Columns("I:Q")
-    Set AdminRows = ActiveSheet.Rows("22:29")
+    Set AdminCols = ActiveSheet.Columns("I:S")
+    Set AdminRows = ActiveSheet.Rows("23:29")
 
     If AdminCols.Hidden = False Then
         AdminCols.Hidden = True
